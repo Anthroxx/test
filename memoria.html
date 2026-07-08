@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memoria de Actividad - Tutorial de Spring Boot</title>
+    <style>
+        /* Estilos optimizados para lectura y exportación a PDF (A4) */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700&display=swap');
+
+        :root {
+            --primary: #10b981;
+            --dark: #0f172a;
+            --text: #334155;
+            --light-bg: #f8fafc;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            background-color: #f1f5f9;
+            padding: 40px 20px;
+        }
+
+        .document-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 50px 70px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+        }
+
+        /* Portada / Cabecera */
+        .header {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 25px;
+            margin-bottom: 40px;
+        }
+
+        .title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .meta-item strong {
+            color: var(--dark);
+        }
+
+        /* Secciones del Reporte */
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--dark);
+            margin: 30px 0 15px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+            page-break-after: avoid;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 15px;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-bottom: 20px;
+            margin-left: 25px;
+            font-size: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        code {
+            font-family: monospace;
+            background-color: var(--light-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #0f766e;
+            border: 1px solid var(--border);
+        }
+
+        /* Tablas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+            page-break-inside: avoid;
+        }
+
+        th, td {
+            border: 1px solid var(--border);
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--light-bg);
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        /* Cajas de texto */
+        .info-box {
+            background-color: var(--light-bg);
+            border-left: 4px solid var(--primary);
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 6px 6px 0;
+            page-break-inside: avoid;
+        }
+
+        .info-box p {
+            margin-bottom: 0;
+            font-size: 14px;
+        }
+
+        /* Botón de Impresión en Pantalla */
+        .print-btn-container {
+            max-width: 800px;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .print-btn {
+            background-color: var(--primary);
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+
+        .print-btn:hover {
+            background-color: #059669;
+        }
+
+        /* Estilos de Impresión */
+        @media print {
+            body {
+                background-color: #ffffff;
+                padding: 0;
+                color: #000000;
+            }
+
+            .document-container {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+
+            .print-btn-container {
+                display: none;
+            }
+
+            @page {
+                size: A4;
+                margin: 2.5cm;
+            }
+
+            h2 {
+                margin-top: 40px;
+            }
+
+            .page-break {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Botón de acción para imprimir/guardar como PDF -->
+    <div class="print-btn-container">
+        <button onclick="window.print()" class="print-btn">
+            🖨️ Imprimir / Guardar como PDF
+        </button>
+    </div>
+
+    <!-- Contenido del Reporte -->
+    <main class="document-container">
+        
+        <!-- Portada / Encabezado -->
+        <header class="header">
+            <div class="subtitle">Memoria de Actividad</div>
+            <h1 class="title">Diseño y Desarrollo de un Tutorial Interactivo de Spring Boot</h1>
+            
+            <div class="meta-grid">
+                <div class="meta-item"><strong>Asignatura:</strong> Diseño de Sistemas</div>
+                <div class="meta-item"><strong>Framework:</strong> Spring Boot 3.2.2</div>
+                <div class="meta-item"><strong>Estudiante:</strong> Ants A.</div>
+                <div class="meta-item"><strong>Tecnologías:</strong> HTML5, CSS3, JavaScript ES6</div>
+            </div>
+        </header>
+
+        <!-- 1. Descripción de la Actividad -->
+        <section>
+            <h2>1. Descripción de la Actividad</h2>
+            <p>La presente actividad consiste en el diseño, estructuración e implementación de una guía didáctica en formato navegable e interactivo (HTML+CSS+JS) dedicada al aprendizaje de <strong>Spring Boot</strong>. Con el propósito de cumplir y superar las pautas docentes, se ha elaborado un recurso didáctico de alta densidad técnica (equivalente a más de 10 páginas impresas) estructurado en 6 bloques teóricos secuenciales, acompañados de talleres prácticos y simuladores virtuales.</p>
+            <p>El tutorial cubre todo el ciclo de vida inicial de un desarrollador en Spring Boot: desde la justificación teórica en arquitecturas empresariales y la correcta configuración del entorno de desarrollo, pasando por el desarrollo práctico de endpoints y arquitecturas CRUD en tres capas, hasta la comprensión de conceptos avanzados como inyección de dependencias e intercambio de recursos de origen cruzado (CORS). El tutorial incorpora además un <strong>Workspace Interactivo</strong> (Playground) con un compilador de Java simulado y consola activa para consolidar el conocimiento en caliente.</p>
+        </section>
+
+        <!-- 2. Listado de Elementos Utilizados -->
+        <section>
+            <h2>2. Listado de Elementos Utilizados</h2>
+            <p>Para la construcción de la plataforma navegable se han empleado únicamente tecnologías web estándares nativas, garantizando la portabilidad, velocidad de carga y cumplimiento de buenas prácticas de diseño y accesibilidad:</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tecnología</th>
+                        <th>Elemento Utilizado</th>
+                        <th>Propósito / Justificación técnica</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>HTML5 Semántico</strong></td>
+                        <td><code>&lt;aside&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;header&gt;</code></td>
+                        <td>Asegura una jerarquía clara del documento para SEO y es de vital importancia para lectores de pantalla (Accesibilidad).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CSS3 Moderno</strong></td>
+                        <td>Variables de color CSS, Flexbox, CSS Grid y Media Queries</td>
+                        <td>Permite un diseño responsive robusto adaptable a dispositivos móviles y ordenadores, con transiciones suaves y estética de modo oscuro.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>JavaScript ES6</strong></td>
+                        <td>Consts, Arrow functions, DOM APIs, Array Iteradores</td>
+                        <td>Controla la lógica de navegación dinámica entre secciones (router interno de una sola página), copiado rápido y menús colapsables.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Web Storage API</strong></td>
+                        <td><code>localStorage</code></td>
+                        <td>Persistencia local del progreso de lectura del alumno y el estado resuelto de las evaluaciones interactivas.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RegEx Parsers</strong></td>
+                        <td><code>RegExp.exec()</code></td>
+                        <td>Mecanismo JavaScript integrado en el editor para parsear código Java de forma dinámica y simular respuestas de endpoints web.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <div class="page-break"></div>
+
+        <!-- 3. URLs de Publicación -->
+        <section>
+            <h2>3. URLs del Proyecto</h2>
+            <p>El proyecto ha sido concebido para funcionar tanto de manera local (Directamente abriendo el archivo <code>index.html</code>) como en despliegues estáticos. Se sugieren los siguientes canales de consulta:</p>
+            <ul>
+                <li><strong>Dirección de Acceso Local (Desarrollo):</strong> <a href="index.html" style="color: var(--primary); text-decoration: none;">index.html</a> (Accede directamente al tutorial en el directorio de trabajo).</li>
+                <li><strong>URL de Publicación Simulada (Staging):</strong> <code>https://antsa-tutorial.github.io/springboot-systems-design/</code></li>
+                <li><strong>Repositorio de Código Fuente Simulador:</strong> <code>https://github.com/antsa/springboot-tutorial-unir</code></li>
+            </ul>
+        </section>
+
+        <!-- 4. Recursos Incluidos -->
+        <section>
+            <h2>4. Listado de Recursos Incluidos</h2>
+            <p>Se detallan a continuación los elementos externos y de diseño que enriquecen el aspecto visual y la interactividad del tutorial:</p>
+            <ul>
+                <li><strong>Fuentes Tipográficas:</strong> Conexión vía Google Fonts a las familias <em>Outfit</em> (para encabezados elegantes y limpios), <em>Inter</em> (para una excelente legibilidad en el cuerpo de texto) y <em>Fira Code</em> (fuente monoespaciada para legibilidad del código de programación).</li>
+                <li><strong>Paleta de Colores:</strong> Diseñada en torno al verde corporativo de Spring (<code>#10b981</code>) mezclado con grises y azules de alta profundidad visual en modo oscuro (esquema de color premium 0B0F19 para el tutorial, reduciendo la fatiga ocular del lector).</li>
+                <li><strong>Simulador Spring Boot:</strong> Banner de arte ASCII original del framework y logs realistas con marcas de tiempo generadas dinámicamente al momento del inicio.</li>
+            </ul>
+        </section>
+
+        <!-- 5. Conclusiones -->
+        <section>
+            <h2>5. Conclusiones sobre la Realización de la Actividad</h2>
+            <p>La elaboración de este trabajo demuestra que el diseño instruccional y la interactividad son catalizadores del aprendizaje en materias tecnológicas complejas. Al proveer un entorno autocontenido donde el estudiante puede alternar entre la justificación teórica y la manipulación de código real sin instalar herramientas pesadas de inicio, se reduce la barrera de entrada al framework.</p>
+            <p>Desde la perspectiva del diseño de sistemas, el mayor desafío técnico consistió en implementar el simulador de Spring Boot utilizando únicamente JavaScript de cliente, logrando simular el comportamiento de un servidor MVC clásico. Se concluye que el framework Spring Boot destaca por su madurez empresarial y capacidad de abstracción de datos, siendo un eje indispensable en los planes de estudio actuales de ingeniería de software.</p>
+        </section>
+
+        <div class="info-box">
+            <p><strong>Instrucciones para generar el PDF de entrega:</strong> Abre esta página en tu navegador (Chrome o Edge), presiona la combinación de teclas <code>Ctrl + P</code>, selecciona la opción "Guardar como PDF" en el destino de la impresora, asegúrate de habilitar los "Gráficos de fondo" en la configuración y guarda el archivo con el nombre requerido.</p>
+        </div>
+
+    </main>
+</body>
+</html>

@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial Interactivo de Spring Boot - Diseño de Sistemas</title>
+    <meta name="description"
+        content="Aprende Spring Boot desde cero con este tutorial interactivo que cubre justificación, instalación, arquitectura, desarrollo CRUD y pruebas en tiempo real.">
+    <!-- Estilos de la aplicación -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Cabecera Móvil (solo visible en pantallas pequeñas) -->
+    <header class="mobile-header">
+        <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menú de navegación">☰</button>
+        <div class="logo-mobile"> Spring Boot <span>Tutorial</span></div>
+    </header>
+
+    <div class="app-container">
+
+        <!-- Barra Lateral de Navegación -->
+        <aside class="sidebar" role="complementary">
+            <div class="sidebar-header">
+                <div class="logo">Tutorial Framework</div>
+                <div class="logo"> Spring<span>Boot</span></div>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Progreso de Lectura</span>
+                        <span id="progress-percent">0%</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div id="progress-bar-fill" class="progress-bar-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav" aria-label="Navegación del tutorial">
+                <div class="nav-section-title">Contenido Principal</div>
+                <ul class="nav-list">
+                    <li class="nav-item" data-section="introduccion">
+                        <a href="#introduccion" class="nav-link">1. Justificación del Framework</a>
+                    </li>
+                    <li class="nav-item" data-section="instalacion">
+                        <a href="#instalacion" class="nav-link">2. Instalación y Configuración</a>
+                    </li>
+                    <li class="nav-item" data-section="primeros-pasos">
+                        <a href="#primeros-pasos" class="nav-link">3. Hola Mundo en Spring</a>
+                    </li>
+                    <li class="nav-item" data-section="creacion-crud">
+                        <a href="#creacion-crud" class="nav-link">4. Utilización: API REST CRUD</a>
+                    </li>
+                    <li class="nav-item" data-section="arquitectura">
+                        <a href="#arquitectura" class="nav-link">5. Cómo funciona Spring Boot</a>
+                    </li>
+                    <li class="nav-item" data-section="conclusiones">
+                        <a href="#conclusiones" class="nav-link">6. Conclusiones y Alcance</a>
+                    </li>
+                </ul>
+
+                <div class="nav-section-title">Práctica e Interacción</div>
+                <ul class="nav-list">
+                    <li class="nav-item" data-section="playground">
+                        <a href="#playground" class="nav-link">💻 Workspace</a>
+                    </li>
+                    <li class="nav-item" data-section="ejercicios">
+                        <a href="#ejercicios" class="nav-link">📝 Ejercicios Prácticos</a>
+                    </li>
+                    <li class="nav-item" data-section="recursos">
+                        <a href="#recursos" class="nav-link">📚 Recursos</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                Actividad 2 - UNIR<br>
+                Antonio de Jesús Sánchez Rayón
+            </div>
+        </aside>
+
+        <!-- Contenedor de Contenido Principal -->
+        <main class="main-content" role="main">
+
+            <!-- SECCIÓN 1: INTRODUCCIÓN Y JUSTIFICACIÓN -->
+            <section id="introduccion" class="content-section">
+                <h1>1. Justificación de Spring Boot</h1>
+                <p>En el desarrollo de software enfocado en la arquitectura de microservicios y backend
+                    empresarial, la agilidad, robustez y facilidad de mantenimiento son fundamentales. Aquí es donde
+                    Spring Boot se justifica como la herramienta líder para el ecosistema Java.</p>
+
+                <h2>¿Qué es Spring Boot y para qué sirve?</h2>
+                <p>Spring Boot es un framework open-source basado en Java, desarrollado sobre el ecosistema del
+                    Spring Framework original. Su objetivo principal es simplificar el proceso de
+                    configuración y despliegue de aplicaciones Java empresariales.</p>
+                <p>Sirve para crear aplicaciones autónomas (stand-alone) que se ejecutan directamente con un servidor
+                    web embebido (como Tomcat, Jetty o Undertow), sin necesidad de instalar o desplegar externamente
+                    servidores de aplicaciones pesados (como WebLogic, Wildfly o Glassfish).</p>
+
+                <div class="alert alert-info">
+                    <div class="alert-title">Concepto Clave: Convención sobre Configuración</div>
+                    <p>Spring Boot promueve la filosofía de <strong>"Convention over Configuration".</strong>
+                        Esto significa que viene preconfigurado con las decisiones tecnológicas
+                        más comunes y recomendadas, permitiendo al desarrollador escribir código
+                        inmediatamente en lugar de pasar horas configurando archivos XML o Java.</p>
+                </div>
+
+                <h2>¿Qué aplicaciones y casos de uso tiene?</h2>
+                <ul>
+                    <li><strong>APIs RESTful y Microservicios:</strong> Es el estándar para la creación de
+                        servicios web ligeros, escalables e interconectados bajo arquitecturas distribuidas (Cloud
+                        Native).</li>
+                    <li><strong>Aplicaciones Web Monolíticas:</strong> Permite renderizar vistas HTML dinámicas en el
+                        lado del servidor integrándose con motores de plantillas como Thymeleaf,
+                        FreeMarker o JSP.</li>
+                    <li><strong>Procesamiento en Lote (Spring Batch):</strong> Ideal para tareas programadas
+                        automatizadas de alta concurrencia que procesan grandes volúmenes de registros (ETL).</li>
+                    <li><strong>Integración y Streaming:</strong> Facilita la comunicación orientada a mensajes mediante
+                        integraciones con Apache Kafka, RabbitMQ y JMS.</li>
+                </ul>
+
+                <h2>¿Sobre qué lenguajes se apoya?</h2>
+                <p>Aunque el núcleo del ecosistema está escrito en Java, Spring Boot proporciona soporte nativo de
+                    primera clase para:</p>
+                <ul>
+                    <li><strong>Java:</strong> Versión 17 y 21 son actualmente las más utilizadas y recomendadas por su
+                        soporte a largo plazo (LTS).</li>
+                    <li><strong>Kotlin:</strong> El lenguaje moderno de JetBrains, con una sintaxis limpia y
+                        interoperabilidad del 100% con las librerías Java.</li>
+                    <li><strong>Groovy:</strong> Lenguaje de scripting dinámico compatible con la Máquina Virtual de
+                        Java (JVM).</li>
+                </ul>
+
+                <h2>Prerrequisitos Técnicos</h2>
+                <p>Antes de comenzar en Spring Boot, hay que cumplir con los siguientes requisitos:</p>
+                <ol>
+                    <li>Conocimientos sólidos de programación orientada a objetos <strong>(POO)</strong> en Java.</li>
+                    <li>Familiaridad con la arquitectura <strong>MVC</strong> y el protocolo <strong>HTTP</strong>.</li>
+                    <li>Tener instalado el <strong>Java Development Kit (JDK) 17 o superior</strong> en tu máquina.</li>
+                    <li>Familiaridad básica con herramientas de automatización de construcción (Build Tools) como
+                        <strong>Maven</strong> o <strong>Gradle</strong>.
+                    </li>
+                </ol>
+
+                <div class="page-navigation">
+                    <span></span>
+                    <button class="btn btn-secondary btn-next-page">Siguiente: Instalación y Configuración ➔</button>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 2: INSTALACIÓN Y CONFIGURACIÓN -->
+            <section id="instalacion" class="content-section">
+                <h1>2. Instalación y Configuración del Entorno</h1>
+                <p>Para empezar a codificar con Spring Boot, no necesitamos instalar un "programa" o framework global en
+                    el sistema operativo. En su lugar, el framework se añade como dependencias del proyecto de
+                    software mediante un gestor de construcción. Sin embargo, debemos preparar nuestro entorno de
+                    desarrollo.
+                </p>
+
+                <h2>Paso 1: Instalación de Java JDK y Variables de Entorno</h2>
+                <p>Spring Boot 3.x requiere como mínimo Java 17. Para verificar si lo tienes instalado, abre tu
+                    consola o terminal (PowerShell en Windows, Terminal en macOS/Linux) y escribe:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-header">
+                        <span class="code-lang">Consola</span>
+                        <button class="copy-btn">Copiar</button>
+                    </div>
+                    <pre><code>java -version</code></pre>
+                </div>
+
+                <p>Si la consola no reconoce el comando, debes descargar e instalar un JDK (por ejemplo, **Temurin de
+                    Adoptium** u **Oracle JDK**). Además, asegúrate de configurar las siguientes variables de entorno en
+                    tu sistema:</p>
+                <ul>
+                    <li><strong>JAVA_HOME:</strong> Debe apuntar a la ruta raíz donde se instaló el JDK (ej. <code
+                            style="color: #60a5fa;">C:\Program Files\Eclipse Adoptium\jdk-21.0.10.8-hotspot</code>).
+                    </li>
+                    <li><strong>Path:</strong> Debe incluir la ruta a la carpeta binaria del JDK (ej. <code
+                            style="color: #60a5fa;">%JAVA_HOME%\bin</code>).</li>
+                </ul>
+
+                <h2>Paso 2: Herramientas de Construcción (Maven vs. Gradle)</h2>
+                <p>Las aplicaciones Spring Boot gestionan sus librerías a través de herramientas de construcción. Las
+                    rutas y dependencias se especifican en:</p>
+                <ul>
+                    <li><strong>pom.xml</strong> (si usas **Maven**): Archivo XML estándar que define el modelo del
+                        proyecto y sus dependencias.</li>
+                    <li><strong>build.gradle</strong> (si usas **Gradle**): Script en lenguaje Groovy o Kotlin más
+                        compacto y flexible para la automatización.</li>
+                </ul>
+
+                <h2>Paso 3: Inicializar un Proyecto base con Spring Initializr</h2>
+                <p>La forma más recomendada para crear un proyecto base es usar la web oficial <a
+                        href="https://start.spring.io" target="_blank" style="color: #10b981;">Spring Initializr</a>:
+                </p>
+                <ol>
+                    <li>Selecciona el gestor de dependencias (por ejemplo, **Maven Project**).</li>
+                    <li>Selecciona el lenguaje (**Java**).</li>
+                    <li>Elige la versión de Spring Boot (selecciona una versión estable que no diga "SNAPSHOT" ni "M").
+                    </li>
+                    <li>Ingresa los metadatos de tu proyecto (Group, Artifact, Name, Package name).</li>
+                    <li>Elige el empaquetado (**Jar** es el estándar recomendado para servidores embebidos).</li>
+                    <li>Selecciona la versión de Java instalada (ej. **17** o **21**).</li>
+                    <li>Agrega dependencias iniciales. Para una API REST base añade: **Spring Web**.</li>
+                    <li>Haz clic en <strong>Generate</strong> para descargar un archivo comprimido .zip. Descomprímelo
+                        en tu carpeta de trabajo.</li>
+                </ol>
+
+                <div class="alert alert-warning">
+                    <div class="alert-title">¿Necesita Base de Datos?</div>
+                    <p>Para empezar a aprender y desarrollar tus primeros endpoints <strong>NO necesitas instalar una
+                            base de datos externa</strong> (como PostgreSQL o MySQL). Puedes utilizar <strong>H2
+                            Database</strong>, una base de datos relacional ultraligera en memoria que se configura
+                        automáticamente y se destruye al apagar la aplicación, facilitando pruebas inmediatas.</p>
+                </div>
+
+                <div class="page-navigation">
+                    <button class="btn btn-secondary btn-prev-page">◀ Anterior: Justificación</button>
+                    <button class="btn btn-secondary btn-next-page">Siguiente: Hola Mundo ➔</button>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 3: PRIMEROS PASOS (HOLA MUNDO) -->
+            <section id="primeros-pasos" class="content-section">
+                <h1>3. Primeros Pasos: El clásico "Hola Mundo"</h1>
+                <p>Una vez descargado y abierto tu proyecto en un Entorno de Desarrollo Integrado (IDE) como **IntelliJ
+                    IDEA**, **Eclipse** o **VS Code**, verás la estructura típica de directorios. Vamos a escribir
+                    nuestro primer controlador HTTP interactivo.</p>
+
+                <h2>Estructura del Proyecto Generado</h2>
+                <ul>
+                    <li><code style="color: #60a5fa;">src/main/java</code>: Aquí reside todo el código fuente Java
+                        organizado en paquetes.</li>
+                    <li><code style="color: #60a5fa;">src/main/resources</code>: Archivos de configuración como <code
+                            style="color: #a78bfa;">application.properties</code> y recursos estáticos.</li>
+                    <li><code style="color: #60a5fa;">pom.xml</code>: El archivo de dependencias de Maven.</li>
+                </ul>
+
+                <h2>Creación del Punto de Entrada de la Aplicación</h2>
+                <p>Toda aplicación Spring Boot tiene una clase principal con el método `main` decorado con la anotación
+                    clave **`@SpringBootApplication`**:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-header">
+                        <span class="code-lang">Java (DemoApplication.java)</span>
+                        <button class="copy-btn">Copiar</button>
+                    </div>
+                    <pre><code><span class="code-keyword">package</span> com.example.demo;
+
+<span class="code-keyword">import</span> org.springframework.boot.SpringApplication;
+<span class="code-keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;
+
+<span class="code-annotation">@SpringBootApplication</span>
+<span class="code-keyword">public class</span> <span class="code-type">DemoApplication</span> {
+    <span class="code-keyword">public static void</span> main(<span class="code-type">String</span>[] args) {
+        <span class="code-type">SpringApplication</span>.run(<span class="code-type">DemoApplication</span>.class, args);
+    }
+}</code></pre>
+                </div>
+
+                <h2>Creación del Controlador REST</h2>
+                <p>Para que nuestra aplicación responda a solicitudes HTTP desde el navegador, creamos una nueva clase
+                    Java en el mismo paquete de nuestra aplicación llamada `HelloController`:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-header">
+                        <span class="code-lang">Java (HelloController.java)</span>
+                        <button class="copy-btn">Copiar</button>
+                    </div>
+                    <pre><code><span class="code-keyword">package</span> com.example.demo;
+
+<span class="code-keyword">import</span> org.springframework.web.bind.annotation.RestController;
+<span class="code-keyword">import</span> org.springframework.web.bind.annotation.GetMapping;
+
+<span class="code-annotation">@RestController</span>
+<span class="code-keyword">public class</span> <span class="code-type">HelloController</span> {
+
+    <span class="code-annotation">@GetMapping</span>(<span class="code-string">"/hola"</span>)
+    <span class="code-keyword">public</span> <span class="code-type">String</span> decirHola() {
+        <span class="code-keyword">return</span> <span class="code-string">"¡Hola Mundo desde Spring Boot!"</span>;
+    }
+}</code></pre>
+                </div>
+
+                <h2>Explicación de las Anotaciones</h2>
+                <ul>
+                    <li><strong>`@RestController`:</strong> Le dice a Spring que esta clase es un controlador web
+                        encargado de recibir solicitudes y responder directamente con texto, JSON o XML (sin renderizar
+                        páginas HTML tradicionales).</li>
+                    <li><strong>`@GetMapping("/hola")`:</strong> Indica a Spring que cuando un cliente realice una
+                        solicitud HTTP de tipo `GET` a la ruta `/hola`, debe ejecutar el método asociado `decirHola()` y
+                        devolver el valor del `return`.</li>
+                </ul>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">¿Cómo probarlo?</div>
+                    <p>Puedes ejecutar el método <code>main</code> directamente desde tu IDE, o ejecutar en tu consola:
+                        <code>mvnw spring-boot:run</code>. El servidor Tomcat embebido se iniciará en el puerto
+                        predeterminado <code>8080</code>. Abre tu navegador y accede a
+                        <strong>http://localhost:8080/hola</strong> para ver el resultado.
+                    </p>
+                </div>
+
+                <div class="page-navigation">
+                    <button class="btn btn-secondary btn-prev-page">◀ Anterior: Instalación</button>
+                    <button class="btn btn-secondary btn-next-page">Siguiente: API REST CRUD ➔</button>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 4: UTILIZACIÓN (API REST CRUD) -->
+            <section id="creacion-crud" class="content-section">
+                <h1>4. Utilización del Framework: API REST CRUD Completa</h1>
+                <p>Para entender la verdadera potencia de Spring Boot, debemos explorar cómo construir una estructura
+                    clásica de tres capas (**Controlador**, **Servicio** y **Repositorio**) con operaciones CRUD
+                    (Create, Read, Update, Delete) conectada a base de datos.</p>
+
+                <h2>El Modelo / Entidad (Dominio)</h2>
+                <p>Supongamos que creamos un sistema de gestión de tareas. Creamos una clase `Tarea` utilizando
+                    anotaciones de JPA (Java Persistence API) para mapearla a una tabla de base de datos relacional:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-header">
+                        <span class="code-lang">Java (Tarea.java)</span>
+                        <button class="copy-btn">Copiar</button>
+                    </div>
+                    <pre><code><span class="code-keyword">package</span> com.example.demo.model;
+
+<span class="code-keyword">import</span> jakarta.persistence.Entity;
+<span class="code-keyword">import</span> jakarta.persistence.Id;
+<span class="code-keyword">import</span> jakarta.persistence.GeneratedValue;
+<span class="code-keyword">import</span> jakarta.persistence.GenerationType;
+
+<span class="code-annotation">@Entity</span>
+<span class="code-keyword">public class</span> <span class="code-type">Tarea</span> {
+    <span class="code-annotation">@Id</span>
+    <span class="code-annotation">@GeneratedValue</span>(strategy = <span class="code-type">GenerationType</span>.IDENTITY)
+    <span class="code-keyword">private</span> <span class="code-type">Long</span> id;
+    
+    <span class="code-keyword">private</span> <span class="code-type">String</span> titulo;
+    <span class="code-keyword">private</span> <span class="code-type">boolean</span> completada;
+
+    <span class="code-comment">// Constructores, Getters y Setters</span>
+}</code></pre>
+                </div>
+
+                <h2>Acceso a Datos (Capa de Repositorio)</h2>
+                <p>Gracias a **Spring Data JPA**, la persistencia y consultas básicas a base de datos se logran creando
+                    simplemente una interfaz que hereda de `JpaRepository` sin escribir una sola línea de implementación
+                    SQL:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-header">
+                        <span class="code-lang">Java (TareaRepository.java)</span>
+                        <button class="copy-btn">Copiar</button>
+                    </div>
+                    <pre><code><span class="code-keyword">package</span> com.example.demo.repository;
+
+<span class="code-keyword">import</span> com.example.demo.model.Tarea;
+<span class="code-keyword">import</span> org.springframework.data.jpa.repository.JpaRepository;
+<span class="code-keyword">import</span> org.springframework.stereotype.Repository;
+
+<span class="code-annotation">@Repository</span>
+<span class="code-keyword">public interface</span> <span class="code-type">TareaRepository</span> <span class="code-keyword">extends</span> <span class="code-type">JpaRepository</span>&lt;<span class="code-type">Tarea</span>, <span class="code-type">Long</span>&gt; {
+    <span class="code-comment">// Hereda métodos como findAll(), findById(), save(), deleteById()</span>
+}</code></pre>
+                </div>
+
+                <h2>Lógica de Negocio (Capa de Servicio)</h2>
+                <p>Es una buena práctica separar la lógica de presentación de la lógica de negocio mediante clases
+                    decoradas con **`@Service`**:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-header">
+                        <span class="code-lang">Java (TareaService.java)</span>
+                        <button class="copy-btn">Copiar</button>
+                    </div>
+                    <pre><code><span class="code-keyword">package</span> com.example.demo.service;
+
+<span class="code-keyword">import</span> com.example.demo.model.Tarea;
+<span class="code-keyword">import</span> com.example.demo.repository.TareaRepository;
+<span class="code-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;
+<span class="code-keyword">import</span> org.springframework.stereotype.Service;
+<span class="code-keyword">import</span> java.util.List;
+
+<span class="code-annotation">@Service</span>
+<span class="code-keyword">public class</span> <span class="code-type">TareaService</span> {
+    
+    <span class="code-annotation">@Autowired</span>
+    <span class="code-keyword">private</span> <span class="code-type">TareaRepository</span> repository;
+
+    <span class="code-keyword">public</span> <span class="code-type">List</span>&lt;<span class="code-type">Tarea</span>&gt; obtenerTodas() {
+        <span class="code-keyword">return</span> repository.findAll();
+    }
+
+    <span class="code-keyword">public</span> <span class="code-type">Tarea</span> guardar(<span class="code-type">Tarea</span> tarea) {
+        <span class="code-keyword">return</span> repository.save(tarea);
+    }
+}</code></pre>
+                </div>
+
+                <h2>Controlador REST Completo (CRUD)</h2>
+                <p>Finalmente, exponemos los servicios web. El framework maneja automáticamente la serialización y
+                    deserialización de datos Java a formato **JSON** (usando internamente la librería Jackson):</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-header">
+                        <span class="code-lang">Java (TareaController.java)</span>
+                        <button class="copy-btn">Copiar</button>
+                    </div>
+                    <pre><code><span class="code-keyword">package</span> com.example.demo.controller;
+
+<span class="code-keyword">import</span> com.example.demo.model.Tarea;
+<span class="code-keyword">import</span> com.example.demo.service.TareaService;
+<span class="code-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;
+<span class="code-keyword">import</span> org.springframework.web.bind.annotation.*;
+<span class="code-keyword">import</span> java.util.List;
+
+<span class="code-annotation">@RestController</span>
+<span class="code-annotation">@RequestMapping</span>(<span class="code-string">"/api/tareas"</span>)
+<span class="code-keyword">public class</span> <span class="code-type">TareaController</span> {
+
+    <span class="code-annotation">@Autowired</span>
+    <span class="code-keyword">private</span> <span class="code-type">TareaService</span> service;
+
+    <span class="code-annotation">@GetMapping</span>
+    <span class="code-keyword">public</span> <span class="code-type">List</span>&lt;<span class="code-type">Tarea</span>&gt; listar() {
+        <span class="code-keyword">return</span> service.obtenerTodas();
+    }
+
+    <span class="code-annotation">@PostMapping</span>
+    <span class="code-keyword">public</span> <span class="code-type">Tarea</span> crear(<span class="code-annotation">@RequestBody</span> <span class="code-type">Tarea</span> nuevaTarea) {
+        <span class="code-keyword">return</span> service.guardar(nuevaTarea);
+    }
+}</code></pre>
+                </div>
+
+                <div class="alert alert-info">
+                    <div class="alert-title">Visualización de Resultados</div>
+                    <p>Para comprobar que tu API funciona, no basta con usar el navegador (ya que este solo realiza
+                        peticiones GET por defecto). Se recomienda utilizar herramientas cliente de APIs REST como
+                        <strong>Postman</strong>, <strong>Insomnia</strong> o el cliente HTTP integrado de tu IDE,
+                        enviando peticiones POST con cuerpos de mensaje JSON para guardar registros y probando los
+                        diferentes verbos HTTP.
+                    </p>
+                </div>
+
+                <div class="page-navigation">
+                    <button class="btn btn-secondary btn-prev-page">◀ Anterior: Hola Mundo</button>
+                    <button class="btn btn-secondary btn-next-page">Siguiente: Funcionamiento Interno ➔</button>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 5: ARQUITECTURA Y FUNCIONAMIENTO INTERNO -->
+            <section id="arquitectura" class="content-section">
+                <h1>5. Explicación del Funcionamiento del Framework</h1>
+                <p>Para dominar Spring Boot, es indispensable entender qué ocurre bajo el capó. El framework se basa en
+                    conceptos arquitectónicos muy potentes.</p>
+
+                <h2>Inyección de Dependencias e Inversión de Control (IoC)</h2>
+                <p>Spring funciona mediante un <strong>Contenedor IoC (Inversion of Control)</strong>. En lugar de que
+                    crees manualmente instancias de tus clases usando la palabra reservada `new` (por ejemplo,
+                    `TareaService service = new TareaService()`), delegas esta responsabilidad a Spring.</p>
+                <p>Spring escanea tu aplicación al arrancar, identifica las clases con anotaciones estereotipo
+                    (**`@Component`**, **`@Service`**, **`@Repository`**, **`@RestController`**), las instancia y las
+                    administra como objetos reutilizables llamados **Beans** en el contexto de la aplicación.</p>
+                <p>Cuando una clase necesita interactuar con otra (como el controlador que requiere el servicio), usamos
+                    la anotación **`@Autowired`** (o inyección por constructor). Spring busca el bean requerido en su
+                    contenedor y lo "inyecta" (conecta) de forma automática.</p>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-icon">1</div>
+                        <div class="card-title">Escaneo de Clases</div>
+                        <p>Spring escanea los paquetes buscando anotaciones del framework para instanciar los
+                            componentes.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">2</div>
+                        <div class="card-title">Contenedor IoC</div>
+                        <p>Los componentes creados (Beans) se guardan y gestionan en un almacén de memoria centralizado.
+                        </p>
+                    </div>
+                </div>
+
+                <h2>¿Cómo actúa sobre archivos o páginas?</h2>
+                <p>Spring Boot no modifica directamente archivos de tu disco duro al ejecutarse, sino que opera en la
+                    memoria de la JVM. Actúa como una capa intermedia entre el servidor web embebido y el código Java:
+                </p>
+                <ol>
+                    <li>Una petición HTTP llega al puerto `8080`.</li>
+                    <li>El servidor embebido (Tomcat) la recibe y la redirige al servlet central de Spring: el
+                        **`DispatcherServlet`**.</li>
+                    <li>Este servlet analiza la ruta de la petición y localiza qué método controlador
+                        (`@RestController`) mapea a esa ruta.</li>
+                    <li>Ejecuta el código Java, obtiene el objeto devuelto y utiliza serializadores para retornar la
+                        respuesta (HTML, JSON o texto plano) al cliente.</li>
+                </ol>
+
+                <h2>Referenciar ficheros desde otras aplicaciones (CORS)</h2>
+                <p>En el desarrollo de software actual, el frontend (HTML/JS en React, Angular o Vue) se aloja en un
+                    servidor diferente (ej. puerto `3000`) al backend de Spring Boot (puerto `8080`).</p>
+                <p>Por motivos de seguridad, los navegadores bloquean las solicitudes entre distintos dominios a menos
+                    que configures **CORS (Cross-Origin Resource Sharing)**. En Spring Boot, puedes habilitarlo
+                    fácilmente a nivel de controlador usando la anotación **`@CrossOrigin`**:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-header">
+                        <span class="code-lang">Java (CORS ejemplo)</span>
+                        <button class="copy-btn">Copiar</button>
+                    </div>
+                    <pre><code><span class="code-annotation">@CrossOrigin</span>(origins = <span class="code-string">"http://localhost:3000"</span>)
+<span class="code-annotation">@RestController</span>
+<span class="code-keyword">public class</span> <span class="code-type">HelloController</span> {
+    <span class="code-comment">// Los métodos de este controlador ahora admiten peticiones de React/Vue</span>
+}</code></pre>
+                </div>
+
+                <div class="page-navigation">
+                    <button class="btn btn-secondary btn-prev-page">◀ Anterior: API REST CRUD</button>
+                    <button class="btn btn-secondary btn-next-page">Siguiente: Conclusiones ➔</button>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 6: CONCLUSIONES Y ALCANCE -->
+            <section id="conclusiones" class="content-section">
+                <h1>6. Conclusiones y Alcance del Tutorial</h1>
+                <p>Hemos recorrido los fundamentos esenciales que estructuran y dan forma al framework Java más
+                    demandado en la actualidad.</p>
+
+                <h2>Objetivos Conseguidos</h2>
+                <p>Al finalizar este tutorial, habrás aprendido:</p>
+                <ul>
+                    <li>El propósito y la justificación del framework en el desarrollo empresarial moderno.</li>
+                    <li>A configurar las herramientas e inicializar un proyecto base limpio de Spring Boot.</li>
+                    <li>A codificar controladores y mapear endpoints a rutas HTTP (GET/POST).</li>
+                    <li>La arquitectura interna en capas del framework y cómo se comunican a través de la inyección de
+                        dependencias.</li>
+                    <li>A configurar la conectividad con bases de datos en memoria para propósitos de prueba de forma
+                        transparente.</li>
+                </ul>
+
+                <h2>Alcance del Framework</h2>
+                <p>Spring Boot no se limita al desarrollo de APIs REST simples. Su alcance cubre sistemas empresariales
+                    de alta disponibilidad:</p>
+                <ul>
+                    <li><strong>Seguridad Avanzada (Spring Security):</strong> Permite implementar autenticación por
+                        JWT, OAuth2 y control de acceso robusto por roles a nivel de endpoint.</li>
+                    <li><strong>Monitoreo en Producción (Spring Boot Actuator):</strong> Expone métricas críticas (uso
+                        de CPU, hilos activos, salud de la base de datos) que pueden ser recolectadas por herramientas
+                        como Prometheus y Grafana.</li>
+                    <li><strong>Despliegue y Contenedores:</strong> La capacidad de empaquetar aplicaciones en un
+                        archivo JAR autocontenido facilita enormemente su dockerización y despliegue automatizado en
+                        entornos Kubernetes o plataformas Cloud (AWS, Azure, GCP).</li>
+                </ul>
+
+                <div class="alert alert-success">
+                    <div class="alert-title">¡Tutorial Finalizado!</div>
+                    <p>Has completado el bloque conceptual del tutorial. Te sugerimos visitar la pestaña del
+                        <strong>Workspace / Playground</strong> interactivo a continuación para editar código en
+                        caliente y ver cómo responde un servidor Spring Boot simulado en tiempo real.
+                    </p>
+                </div>
+
+                <div class="page-navigation">
+                    <button class="btn btn-secondary btn-prev-page">◀ Anterior: Funcionamiento</button>
+                    <button class="btn btn-secondary btn-next-page">Siguiente: Ir al Workspace ➔</button>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 7: WORKSPACE / PLAYGROUND -->
+            <section id="playground" class="content-section">
+                <h1> Workspace Interactivo de Spring Boot</h1>
+                <p>Experimenta con Spring Boot directamente desde tu navegador sin instalar nada. A continuación tienes
+                    un editor de archivos interactivo (Mock IDE), un panel de consola del servidor y una ventana de
+                    navegador web simulada.</p>
+
+                <div class="alert alert-info" style="margin-bottom: 20px;">
+                    <div class="alert-title">Instrucciones de Experimentación</div>
+                    <p>1. Selecciona <strong>HelloController.java</strong>.<br>
+                        2. Modifica el mensaje dentro del bloque <code>return "..."</code> en el método
+                        <code>decirHola</code>.<br>
+                        3. Haz clic en <strong>"Ejecutar"</strong> para iniciar/reiniciar el servidor y ver los logs de
+                        arranque en la consola.<br>
+                        4. Navega en la barra del navegador simulado a <strong>http://localhost:8080/hola</strong> para
+                        ver tu mensaje en pantalla.
+                    </p>
+                </div>
+
+                <!-- Contenedor del Simulador -->
+                <div class="playground-container">
+
+                    <!-- Panel Izquierdo: Editor de Código -->
+                    <div class="playground-editor-pane">
+                        <div id="editor-tabs" class="editor-tabs">
+                            <!-- Inyectado dinámicamente por JS -->
+                        </div>
+                        <div class="editor-wrapper">
+                            <div id="editor-line-numbers" class="editor-line-numbers">
+                                <!-- Inyectado dinámicamente -->
+                            </div>
+                            <textarea id="editor-textarea" class="editor-textarea" spellcheck="false" autocomplete="off"
+                                aria-label="Editor de código interactivo"></textarea>
+                        </div>
+                        <div class="playground-controls">
+                            <span style="font-size: 12px; color: var(--text-muted); font-family: var(--font-mono);">IDE
+                                Virtual</span>
+                            <button id="btn-run" class="btn btn-primary">Ejecutar</button>
+                        </div>
+                    </div>
+
+                    <!-- Panel Derecho: Consola y Navegador Web -->
+                    <div class="playground-preview-pane">
+                        <!-- Navegador Web Simulado -->
+                        <div class="preview-browser">
+                            <div class="browser-header">
+                                <div class="browser-dots">
+                                    <span class="browser-dot red"></span>
+                                    <span class="browser-dot yellow"></span>
+                                    <span class="browser-dot green"></span>
+                                </div>
+                                <div class="browser-address-bar">
+                                    <span>🌐</span>
+                                    <input id="browser-address" type="text" value="http://localhost:8080/hola">
+                                </div>
+                            </div>
+                            <div id="browser-body" class="browser-body-offline">
+                                <!-- Inyectado dinámicamente según el estado del servidor -->
+                            </div>
+                        </div>
+
+                        <!-- Consola del Servidor -->
+                        <pre id="console-logs"
+                            class="preview-console">Consola del servidor Spring Boot inactiva. Presiona 'Ejecutar' para arrancar la aplicación.</pre>
+                    </div>
+
+                </div>
+
+                <div class="page-navigation">
+                    <button class="btn btn-secondary btn-prev-page">◀ Anterior: Conclusiones</button>
+                    <button class="btn btn-secondary btn-next-page">Siguiente: Ejercicios Prácticos ➔</button>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 8: EJERCICIOS PRÁCTICOS -->
+            <section id="ejercicios" class="content-section">
+                <h1> Ejercicios Prácticos y Retos de Aprendizaje</h1>
+                <p>Para afianzar los conocimientos teóricos adquiridos, te proponemos la realización de tres ejercicios
+                    prácticos. Puedes intentar codificar las soluciones en tu entorno local.</p>
+
+                <div class="grid-2">
+                    <!-- Ejercicio 1 -->
+                    <div class="card">
+                        <div class="card-title">
+                            <span class="card-icon">1</span>
+                            Reto 1: Endpoints con Variables de Ruta
+                        </div>
+                        <p><strong>Descripción:</strong> Crea un endpoint en tu controlador que reciba una variable de
+                            ruta dinámica usando la anotación <code>@PathVariable</code>. El endpoint debe mapearse a
+                            <code>/saludar/{nombre}</code> y responder con un mensaje personalizado que incluya el
+                            nombre de la variable de la ruta.
+                        </p>
+                        <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 15px 0;">
+                        <p style="font-size: 13px; color: var(--text-muted);"><strong>Concepto a practicar:</strong>
+                            @PathVariable, mapeo dinámico de URLs.</p>
+                    </div>
+
+                    <!-- Ejercicio 2 -->
+                    <div class="card">
+                        <div class="card-title">
+                            <span class="card-icon">2</span>
+                            Reto 2: Configuración de Puerto
+                        </div>
+                        <p><strong>Descripción:</strong> Por defecto, Spring Boot arranca en el puerto 8080. Modifica el
+                            archivo de configuración <code>application.properties</code> para cambiar el puerto de
+                            escucha del servidor al puerto <code>9090</code> y agrega una propiedad personalizada para
+                            cambiar el nombre de la app.</p>
+                        <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 15px 0;">
+                        <p style="font-size: 13px; color: var(--text-muted);"><strong>Concepto a practicar:</strong>
+                            Propiedades del servidor (server.port), archivos properties.</p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 24px;">
+                    <div class="card-title">
+                        <span class="card-icon">3</span>
+                        Proyecto Integrador: API de Biblioteca Simple
+                    </div>
+                    <p><strong>Enunciado:</strong> Crea un esqueleto de aplicación Spring Boot utilizando Spring
+                        Initializr con dependencias <strong>Spring Web</strong> y <strong>H2 Database</strong>. Diseña
+                        una clase modelo <code>Libro</code> (con atributos id, titulo, autor y anioPublicacion).
+                        Implementa una interfaz de repositorio que extienda de <code>JpaRepository</code> y un
+                        <code>RestController</code> que implemente dos operaciones básicas:
+                    </p>
+                    <ul style="margin-top: 10px; font-size: 14.5px;">
+                        <li><code>GET /api/libros</code>: Para listar todos los libros guardados en la base de datos.
+                        </li>
+                        <li><code>POST /api/libros</code>: Para crear e insertar un nuevo libro (enviado como cuerpo
+                            JSON).</li>
+                    </ul>
+                </div>
+
+                <div class="page-navigation">
+                    <button class="btn btn-secondary btn-prev-page">◀ Anterior: Workspace</button>
+                    <button class="btn btn-secondary btn-next-page">Siguiente: Recursos ➔</button>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 9: RECURSOS ADICIONALES -->
+            <section id="recursos" class="content-section">
+                <h1> Recursos Adicionales y Bibliografía</h1>
+                <p>Para aquellos desarrolladores que deseen profundizar sus conocimientos y continuar su aprendizaje
+                    sobre el ecosistema de Spring y Java, a continuación se proporciona una recopilación de enlaces,
+                    documentación de referencia y foros de la comunidad.</p>
+
+                <h2>Documentación Oficial</h2>
+                <ul>
+                    <li><a href="https://spring.io/projects/spring-boot" target="_blank"
+                            style="color: #10b981; text-decoration: none; font-weight: 500;">Página Principal de Spring
+                            Boot</a>: Acceso a guías, blog oficial de desarrollo y anuncios del framework.</li>
+                    <li><a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/" target="_blank"
+                            style="color: #10b981; text-decoration: none; font-weight: 500;">Guía de Referencia Completa
+                            (HTML)</a>: La documentación técnica exhaustiva y detallada de configuración y APIs.</li>
+                    <li><a href="https://spring.io/guides" target="_blank"
+                            style="color: #10b981; text-decoration: none; font-weight: 500;">Guías de Inicio Rápido
+                            (Spring Guides)</a>: Tutoriales prácticos paso a paso para integrar diferentes tecnologías
+                        (bases de datos, colas de mensajería, seguridad).</li>
+                </ul>
+
+                <h2>Comunidades y Foros de Soporte</h2>
+                <ul>
+                    <li><strong>Stack Overflow (Etiqueta 'spring-boot'):</strong> Canal principal para la resolución de
+                        dudas técnicas, errores de compilación y patrones de diseño.</li>
+                    <li><strong>Gitter / Discord de Spring:</strong> Salas de chat en tiempo real para conversar
+                        directamente con otros miembros de la comunidad y desarrolladores de Spring.</li>
+                    <li><strong>Reddit (r/springboot / r/java):</strong> Subreddits activos donde se comparten artículos
+                        técnicos, novedades del lenguaje y ofertas de empleo asociadas.</li>
+                </ul>
+
+                <h2>Bibliografía Recomendada</h2>
+                <ul>
+                    <li><em>Spring Boot in Action</em> (Craig Walls) - Libro de cabecera muy práctico y completo para
+                        entender la magia del framework.</li>
+                    <li><em>Spring Microservices in Action</em> (John Carnell) - Enfoque avanzado de integración y
+                        patrones de microservicios con Spring Cloud.</li>
+                </ul>
+
+                <div class="page-navigation">
+                    <button class="btn btn-secondary btn-prev-page">◀ Anterior: Ejercicios</button>
+                    <span></span>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Scripts de la aplicación -->
+    <script src="js/playground.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
